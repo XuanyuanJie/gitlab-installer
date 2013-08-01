@@ -34,7 +34,7 @@ curl -L get.rvm.io | bash -s stable
 
 ## Load RVM
 source /etc/profile.d/rvm.sh
-sed -i 's!ftp.ruby-lang.org/pub/ruby!ruby.taobao.org/mirrors/ruby!' /usr/loca/rvm/config/db
+sed -i 's!ftp.ruby-lang.org/pub/ruby!ruby.taobao.org/mirrors/ruby!' /usr/local/rvm/config/db
 
 ## Fix for missing psych
 ## *It seems your ruby installation is missing psych (for YAML output).
