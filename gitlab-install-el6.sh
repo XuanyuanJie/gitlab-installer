@@ -45,7 +45,7 @@ gem sources -l
 rvm pkg install libyaml
 
 ## Install Ruby (use command to force non-interactive mode)
-command rvm install 1.9.3-p392 --with-libyaml-dir=/usr/local/rvm/usr
+rvm install 1.9.3-p392 --with-libyaml-dir=/usr/local/rvm/usr
 rvm --default use 1.9.3-p392
 
 ## Install core gems
