@@ -18,21 +18,6 @@ export RUBY_VERSION="1.9.3-p392"
 # Define MySQL root password
 MYSQL_ROOT_PW=$(cat /dev/urandom | tr -cd [:alnum:] | head -c ${1:-16})
 
-# Exit on error
-
-die()
-{
-  # $1 - the exit code
-  # $2 $... - the message string
-
-  retcode=$1
-  shift
-  printf >&2 "%s\n" "$@"
-  exit $retcode
-}
-
-echo "### Check OS (we check if the kernel release contains el6)"
-uname -r | grep "el6" || die 1 "Not RHEL or CentOS 6 (el6)"
 
 # Install base packages
 yum -y install git
