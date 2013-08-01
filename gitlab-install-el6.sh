@@ -35,9 +35,7 @@ curl -L get.rvm.io | bash -s stable
 ## Load RVM
 source /etc/profile.d/rvm.sh
 sed -i 's!ftp.ruby-lang.org/pub/ruby!ruby.taobao.org/mirrors/ruby!' /usr/loca/rvm/config/db
-#gem sources --remove https://rubygems.org/
-#gem sources -a http://ruby.taobao.org/
-#gem sources -l
+
 ## Fix for missing psych
 ## *It seems your ruby installation is missing psych (for YAML output).
 ## *To eliminate this warning, please install libyaml and reinstall your ruby.
@@ -48,6 +46,10 @@ rvm pkg install libyaml
 rvm install 1.9.3-p392 --with-libyaml-dir=/usr/local/rvm/usr
 rvm --default use 1.9.3-p392
 
+#use taobao ruby for gem
+gem sources --remove https://rubygems.org/
+gem sources -a http://ruby.taobao.org/
+gem sources -l
 ## Install core gems
 gem install bundler
 
