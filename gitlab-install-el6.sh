@@ -150,8 +150,11 @@ gem install charlock_holmes --version '0.6.9'
 
 ## For MySQL
 yum -y install mysql-devel
-sed -i '1s/https/http/g' Gemfile
-sed -i '1s/rubygems/ruby.taobao/g' Gemfile
+
+
+#let bundle use taobao source
+sed -i '1s/https/http/g' /home/git/gitlab/Gemfile
+sed -i '1s/rubygems/ruby.taobao/g' /home/git/gitlab/Gemfile
 su git -c "bundle install --deployment --without development test postgres"
 
 # Initialise Database and Activate Advanced Features
