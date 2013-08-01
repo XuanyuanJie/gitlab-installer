@@ -107,7 +107,7 @@ echo "UPDATE mysql.user SET Password=PASSWORD('$MYSQL_ROOT_PW') WHERE User='root
 su - git -c "git clone https://github.com/gitlabhq/gitlabhq.git gitlab"
 
 ## Checkout
-su - git -c "cd gitlab;git checkout $GL_GIT_BRANCH"
+su - git -c "cd gitlab;git checkout 5-0-stable"
 
 ## Configure GitLab
 
