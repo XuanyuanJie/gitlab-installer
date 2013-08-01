@@ -117,7 +117,8 @@ cd /home/git/gitlab
 su git -c "cp config/gitlab.yml.example config/gitlab.yml"
 
 ### Change gitlabhq hostname to GL_HOSTNAME
-sed -i "s/  host: localhost/  host: $GL_HOSTNAME/g" config/gitlab.yml
+#sed -i "s/  host: localhost/  host: $GL_HOSTNAME/g" config/gitlab.yml
+sed -i "s/ host: localhost/ host: node06.chenshake.com/g" config/gitlab.yml
 
 ### Change the from email address
 sed -i "s/from: gitlab@localhost/from: gitlab@$GL_HOSTNAME/g" config/gitlab.yml
