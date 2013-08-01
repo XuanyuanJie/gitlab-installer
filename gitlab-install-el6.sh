@@ -120,8 +120,8 @@ su git -c "cp config/gitlab.yml.example config/gitlab.yml"
 sed -i "s/  host: localhost/  host: $GL_HOSTNAME/g" config/gitlab.yml
 
 ### Change the from email address
-#sed -i "s/from: gitlab@localhost/from: gitlab@$GL_HOSTNAME/g" config/gitlab.yml
-sed -i "s/from: gitlab@localhost/from: gitlab@node06.chenshake.com/g" config/gitlab.yml
+sed -i "s/from: gitlab@localhost/from: gitlab@$GL_HOSTNAME/g" config/gitlab.yml
+
 
 ### Copy the example Unicorn config
 su git -c "cp config/unicorn.rb.example config/unicorn.rb"
@@ -161,7 +161,8 @@ export force=yes
 su git -c "bundle exec rake gitlab:setup RAILS_ENV=production"
 
 ## Install init script
-curl --output /etc/init.d/gitlab https://raw.github.com/gitlabhq/gitlab-recipes/master/init.d/gitlab-centos
+#curl --output /etc/init.d/gitlab https://raw.github.com/gitlabhq/gitlab-recipes/master/init.d/gitlab-centos
+curl --output /etc/init.d/gitlab https://raw.github.com/gitlabhq/gitlab-recipes/5-0-stable/init.d/gitlab
 chmod +x /etc/init.d/gitlab
 
 ## Fix for issue 30
