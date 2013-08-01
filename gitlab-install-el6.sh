@@ -49,7 +49,10 @@ curl -L get.rvm.io | bash -s stable
 
 ## Load RVM
 source /etc/profile.d/rvm.sh
-
+sed -i 's!ftp.ruby-lang.org/pub/ruby!ruby.taobao.org/mirrors/ruby!' $rvm_path/config/db
+gem sources --remove https://rubygems.org/
+gem sources -a http://ruby.taobao.org/
+gem sources -l
 ## Fix for missing psych
 ## *It seems your ruby installation is missing psych (for YAML output).
 ## *To eliminate this warning, please install libyaml and reinstall your ruby.
@@ -155,6 +158,8 @@ gem install charlock_holmes --version '0.6.9'
 
 ## For MySQL
 yum -y install mysql-devel
+sed -i '1s/https/http/g' Gemfile
+sed -i '1s/rubygems/ruby.taobao/g' Gemfile
 su git -c "bundle install --deployment --without development test postgres"
 
 # Initialise Database and Activate Advanced Features
