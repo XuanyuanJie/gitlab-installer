@@ -130,6 +130,15 @@ sed -i "s/from: gitlab@localhost/from: gitlab@$GL_HOSTNAME/g" config/gitlab.yml
 #sed -i "s/^listen/#listen/g" /home/git/gitlab/config/unicorn.rb
 #sed -i "s/#listen \"127.0.0.1:8080\"/listen \"127.0.0.1:3000\"/g" /home/git/gitlab/config/unicorn.rb
 
+#copy example puma and change port
+su git -c "cp config/puma.rb.example config/puma.rb"
+sed -i "s/0.0.0.0:9292/127.0.0.1:3000/g" /home/git/gitlab/config/puma.rb
+sed -i "s/# bind/bind/g" /home/git/gitlab/config/puma.rb
+
+
+#chage the folder right
+su git -c "chown -R git log/,chown -R git tmp/,chmod -R u+rwX  log/,chmod -R u+rwX  tmp/,mkdir /home/git/gitlab-satellites,mkdir tmp/pids/,chmod -R u+rwX  tmp/pids/,mkdir /home/git/gitlab/tmp/sockets"
+
 ### Copy database congiguration
 su git -c "cp config/database.yml.mysql config/database.yml"
 
