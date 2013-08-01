@@ -34,7 +34,7 @@ curl -L get.rvm.io | bash -s stable
 
 ## Load RVM
 source /etc/profile.d/rvm.sh
-sed -i 's!ftp.ruby-lang.org/pub/ruby!ruby.taobao.org/mirrors/ruby!' $rvm_path/config/db
+sed -i 's!ftp.ruby-lang.org/pub/ruby!ruby.taobao.org/mirrors/ruby!' /usr/loca/rvm/config/db
 gem sources --remove https://rubygems.org/
 gem sources -a http://ruby.taobao.org/
 gem sources -l
@@ -45,8 +45,8 @@ gem sources -l
 rvm pkg install libyaml
 
 ## Install Ruby (use command to force non-interactive mode)
-command rvm install $RUBY_VERSION --with-libyaml-dir=/usr/local/rvm/usr
-rvm --default use $RUBY_VERSION
+command rvm install 1.9.3-p392 --with-libyaml-dir=/usr/local/rvm/usr
+rvm --default use 1.9.3-p392
 
 ## Install core gems
 gem install bundler
