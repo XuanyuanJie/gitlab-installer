@@ -10,7 +10,7 @@
 export GL_HOSTNAME=$HOSTNAME
 
 # Install from this GitLab branch
-#export GL_GIT_BRANCH="5-0-stable"
+#export GL_GIT_BRANCH="5-3-stable"
 
 # Define the version of ruby the environment that we are installing for
 #export RUBY_VERSION="1.9.3-p392"
@@ -107,7 +107,7 @@ echo "UPDATE mysql.user SET Password=PASSWORD('$MYSQL_ROOT_PW') WHERE User='root
 su - git -c "git clone https://github.com/gitlabhq/gitlabhq.git gitlab"
 
 ## Checkout
-su - git -c "cd gitlab;git checkout 5-0-stable"
+su - git -c "cd gitlab;git checkout 5-3-stable"
 
 ## Configure GitLab
 
