@@ -160,6 +160,9 @@ su git -c "bundle install --deployment --without development test postgres"
 export force=yes
 su git -c "bundle exec rake gitlab:setup RAILS_ENV=production"
 
+#check the status
+su git -c "bundle exec rake gitlab:env:info RAILS_ENV=production"
+
 ## Install init script
 #curl --output /etc/init.d/gitlab https://raw.github.com/gitlabhq/gitlab-recipes/master/init.d/gitlab-centos
 curl --output /etc/init.d/gitlab https://raw.github.com/gitlabhq/gitlab-recipes/5-0-stable/init.d/gitlab
