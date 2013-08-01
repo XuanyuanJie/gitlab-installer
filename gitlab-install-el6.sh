@@ -96,7 +96,7 @@ service mysqld start
 ### Create the database
 echo "CREATE DATABASE IF NOT EXISTS gitlabhq_production DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci';" | mysql -u root
 
-MYSQL_ROOT_PW=$admin
+MYSQL_ROOT_PW=admin
 
 ## Set MySQL root password in MySQL
 echo "UPDATE mysql.user SET Password=PASSWORD('$MYSQL_ROOT_PW') WHERE User='root'; FLUSH PRIVILEGES;" | mysql -u root
