@@ -139,7 +139,8 @@ sed -i "s/secure password/$MYSQL_ROOT_PW/g" config/database.yml
 
 ### Configure git user
 su git -c 'git config --global user.name  "GitLab"'
-su git -c 'git config --global user.email "gitlab@$GL_HOSTNAME"'
+#su git -c 'git config --global user.email "gitlab@$GL_HOSTNAME"'
+su git -c 'git config --global user.email "gitlab@node06.chenshake.com"'
 
 # Install Gems
 
