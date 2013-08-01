@@ -1,24 +1,9 @@
 gitlab-installer
 ================
 
-### Installer for GitLab/GitLabHQ on RHEL 5 and 6 (Red Hat Enterprise Linux and CentOS) ###
+### Installer for GitLab/GitLabHQ on RHEL 6 in China ###
 
-- Fully unattended
-- MySQL or SQLite database (defaulting to MySQL)
-- Localhost mail relay
 
-### Install on EL6 ###
+文档是参考老外的脚本进行修改，因为国内的ruby的访问速度很慢，导致脚本很难完整运行，所以我修改了安装步骤，采用国内的淘宝提供ruby源来完成安装。
 
-    curl https://raw.github.com/mattias-ohlsson/gitlab-installer/master/gitlab-install-el6.sh | bash
-
-### Install on EL5 ###
-
-    curl https://raw.github.com/mattias-ohlsson/gitlab-installer/master/gitlab-install-el5.sh | bash
-
-### Check status (diagnostic) ###
-
-    su - git -c "cd gitlab;bundle exec rake gitlab:check RAILS_ENV=production"
-
-### Donate if you like it ###
-
-Flattr [my profile](https://flattr.com/profile/mattiasohlsson "Mattias Ohlsson on Flattr") to support this!
+2013年8月1日：Centos6.4 完成gitlab的安装
