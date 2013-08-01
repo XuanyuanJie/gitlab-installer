@@ -121,7 +121,8 @@ su git -c "cp config/gitlab.yml.example config/gitlab.yml"
 sed -i "s/ host: localhost/ host: node06.chenshake.com/g" config/gitlab.yml
 
 ### Change the from email address
-sed -i "s/from: gitlab@localhost/from: gitlab@$GL_HOSTNAME/g" config/gitlab.yml
+#sed -i "s/from: gitlab@localhost/from: gitlab@$GL_HOSTNAME/g" config/gitlab.yml
+sed -i "s/from: gitlab@localhost/from: gitlab@node06.chenshake.com/g" config/gitlab.yml
 
 ### Copy the example Unicorn config
 su git -c "cp config/unicorn.rb.example config/unicorn.rb"
