@@ -8,5 +8,6 @@ gitlab-installer
 
 2013年8月1日：Centos6.4 完成gitlab5.0的安装.目前发现gitlab5.2以上的版本，对git的版本有要求，变化还是很多。直接装gitlab5.4，存在很多问题。
 
+2013年8月2日：比较了一下gitlab5.3和gitlab50的区别，完成了gitlab5.3的安装，邮件的功能，应该是没有配置，后续可以参考邮件功能配置。
 
 Gitlab官方安装文档 https://github.com/gitlabhq/gitlab-recipes/blob/master/install/CentOS_6.md
