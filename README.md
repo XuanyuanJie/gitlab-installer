@@ -12,5 +12,5 @@ gitlab-installer
 
 Gitlab官方安装文档 https://github.com/gitlabhq/gitlab-recipes/blob/master/install/CentOS_6.md
 
-2013年8月5日：update ruby 2.0，update git 1.8.
+2013年8月5日：update ruby 2.0，update git 1.8. postfix不需要做任何的设置，默认就可以发送邮件，我已经成功把邮件发送到公司和gmail的邮箱。
 
