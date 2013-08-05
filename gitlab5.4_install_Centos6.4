@@ -19,15 +19,13 @@ export GL_HOSTNAME=$HOSTNAME
 #MYSQL_ROOT_PW=$(cat /dev/urandom | tr -cd [:alnum:] | head -c ${1:-16})
 
 
-# Install base packages
-yum -y install git
 
 ## Install epel-release
 yum -y install http://dl.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
 
 # Ruby
 ## packages (from rvm install message):
-yum -y install patch gcc-c++ readline-devel zlib-devel libffi-devel openssl-devel make autoconf automake libtool bison libxml2-devel libxslt-devel libyaml-devel
+yum -y install git libicu-devel patch gcc-c++ readline-devel zlib-devel libffi-devel openssl-devel make autoconf automake libtool bison libxml2-devel libxslt-devel libyaml-devel
 
 ## Install rvm (instructions from https://rvm.io)
 curl -L get.rvm.io | bash -s stable
@@ -51,7 +49,8 @@ gem sources --remove https://rubygems.org/
 gem sources -a http://ruby.taobao.org/
 gem sources -l
 ## Install core gems
-gem install bundler
+#gem install bundler
+gem install bundler --no-ri --no-rdoc
 
 # Users
 
@@ -79,7 +78,7 @@ yum -y install redis ;service redis start ; chkconfig redis on
 
 ## Mysql
 
-yum install -y mysql-server ; chkconfig mysqld on ; service mysqld start
+yum install -y mysql-server mysql-devel ; chkconfig mysqld on ; service mysqld start
 
 
 ### Create the database
@@ -113,14 +112,13 @@ sed -i "s/  host: localhost/  host: $GL_HOSTNAME/g" config/gitlab.yml
 sed -i "s/from: gitlab@localhost/from: gitlab@$GL_HOSTNAME/g" config/gitlab.yml
 
 
-### Copy the example Unicorn config
+### Unicorn config for gitlab 5.0
 #su git -c "cp config/unicorn.rb.example config/unicorn.rb"
-
 ### Listen on localhost:3000
 #sed -i "s/^listen/#listen/g" /home/git/gitlab/config/unicorn.rb
 #sed -i "s/#listen \"127.0.0.1:8080\"/listen \"127.0.0.1:3000\"/g" /home/git/gitlab/config/unicorn.rb
 
-#copy example puma and change port
+#Puma config for gitlab 5.3 and 5.4
 su git -c "cp config/puma.rb.example config/puma.rb"
 sed -i "s/0.0.0.0:9292/127.0.0.1:3000/g" /home/git/gitlab/config/puma.rb
 sed -i "s/# bind/bind/g" /home/git/gitlab/config/puma.rb
@@ -142,11 +140,8 @@ su git -c 'git config --global user.email "gitlab@$GL_HOSTNAME"'
 # Install Gems
 
 ## Install Charlock holmes
-yum -y install libicu-devel
 gem install charlock_holmes --version '0.6.9'
 
-## For MySQL
-yum -y install mysql-devel
 
 
 #let bundle use taobao source
