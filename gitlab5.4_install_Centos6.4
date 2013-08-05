@@ -73,27 +73,19 @@ su - git -c "gitlab-shell/bin/install"
 
 # Database
 
-## Install redis
-yum -y install redis
+## Redis
+yum -y install redis ;service redis start ; chkconfig redis on
 
-## Start redis
-service redis start
 
-## Automatically start redis
-chkconfig redis on
+## Mysql
+
+yum install -y mysql-server ; chkconfig mysqld on ; service mysqld start
 
-## Install mysql-server
-yum install -y mysql-server
-
-## Turn on autostart
-chkconfig mysqld on
-
-## Start mysqld
-service mysqld start
 
 ### Create the database
 echo "CREATE DATABASE IF NOT EXISTS gitlabhq_production DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci';" | mysql -u root
 
+#Setting mysql root password
 MYSQL_ROOT_PW=admin
 
 ## Set MySQL root password in MySQL
