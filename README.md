@@ -14,32 +14,3 @@ Gitlab官方安装文档 https://github.com/gitlabhq/gitlab-recipes/blob/master/
 
 2013年8月5日：update ruby 2.0，update git 1.8.
 
-
-# su git -c "bundle exec rake gitlab:env:info RAILS_ENV=production"
-
-System information
-System:         CentOS release 6.4 (Final)
-Current User:   git
-Using RVM:      yes
-RVM Version:    1.21.17
-Ruby Version:   2.0.0p247
-Gem Version:    2.0.6
-Bundler Version:1.3.5
-Rake Version:   10.0.4
-
-GitLab information
-Version:        5.4.0
-Revision:       e8d77e2
-Directory:      /home/git/gitlab
-DB Adapter:     mysql2
-URL:            http://node06.chenshake.com
-HTTP Clone URL: http://node06.chenshake.com/some-project.git
-SSH Clone URL:  git@node06.chenshake.com:some-project.git
-Using LDAP:     no
-Using Omniauth: no
-
-GitLab Shell
-Version:        1.7.0
-Repositories:   /home/git/repositories/
-Hooks:          /home/git/gitlab-shell/hooks/
-Git:            /usr/bin/git
