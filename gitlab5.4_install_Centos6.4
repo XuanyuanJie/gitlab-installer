@@ -45,9 +45,13 @@ sed -i 's!ftp.ruby-lang.org/pub/ruby!ruby.taobao.org/mirrors/ruby!' /usr/local/r
 ## Run rvm pkg and add --with-libyaml-dir
 rvm pkg install libyaml
 
-## Install Ruby (use command to force non-interactive mode)
-rvm install 1.9.3-p392 --with-libyaml-dir=/usr/local/rvm/usr
-rvm --default use 1.9.3-p392
+## Gitlab 5.4 support ruby 2.0 you also can use 1.9Install Ruby (use command to force non-interactive mode)
+#rvm install 1.9.3-p392 --with-libyaml-dir=/usr/local/rvm/usr
+#rvm --default use 1.9.3-p392
+
+rvm install 2.0.0-p247 --with-libyaml-dir=/usr/local/rvm/usr
+rvm --default use 2.0.0-p247
+
 
 #use taobao ruby for gem
 gem sources --remove https://rubygems.org/
