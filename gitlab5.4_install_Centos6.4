@@ -211,6 +211,12 @@ iptables -I INPUT -p tcp -m tcp --dport 80 -j ACCEPT
 ## Save iptables
 service iptables save
 
+
+#check the status
+su git -c "bundle exec rake gitlab:env:info RAILS_ENV=production"
+su git -c "bundle exec rake gitlab:check RAILS_ENV=production"
+
+
 echo "### Done ###############################################"
 echo "#"
 echo "# You have your MySQL root password in this file:"
