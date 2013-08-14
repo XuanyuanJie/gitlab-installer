@@ -172,7 +172,7 @@ su git -c "bundle exec rake gitlab:setup RAILS_ENV=production"
 su git -c "bundle exec rake gitlab:env:info RAILS_ENV=production"
 
 ## Install init script
-curl --output /etc/init.d/gitlab https://raw.github.com/gitlabhq/gitlab-recipes/master/init.d/gitlab-centos
+curl --output /etc/init.d/gitlab http://raw.github.com/gitlabhq/gitlab-recipes/master/centos/init.d/gitlab-centos
 chmod +x /etc/init.d/gitlab
 
 ## Fix for issue 30
