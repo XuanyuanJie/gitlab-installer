@@ -27,11 +27,11 @@ yum -y install libicu-devel patch gcc-c++ readline-devel zlib-devel libffi-devel
 
 #update git version
 yum -y remove git
-yum -y install zlib-devel openssl-devel cpio expat-devel gettext-devel curl-devel perl-ExtUtils-CBuilder perl-ExtUtils-MakeMaker
+yum -y install wget zlib-devel openssl-devel cpio expat-devel gettext-devel curl-devel perl-ExtUtils-CBuilder perl-ExtUtils-MakeMaker
 cd /tmp
-wget http://git-core.googlecode.com/files/git-1.8.3.4.tar.gz
-tar -zxf git-1.8.3.4.tar.gz
-cd git-1.8.3.4
+wget http://git-core.googlecode.com/files/git-1.8.4.1.tar.gz
+tar -zxf git-1.8.4.1.tar.gz
+cd git-1.8.4.1
 make prefix=/usr all
 make prefix=/usr install
 
@@ -172,13 +172,13 @@ su git -c "bundle exec rake gitlab:setup RAILS_ENV=production"
 su git -c "bundle exec rake gitlab:env:info RAILS_ENV=production"
 
 ## Install init script
-curl --output /etc/init.d/gitlab https://raw.github.com/gitlabhq/gitlab-recipes/master/centos/init.d/gitlab-centos
+curl --output /etc/init.d/gitlab https://github.com/gitlabhq/gitlab-recipes/blob/master/init/sysvinit/centos/gitlab-puma
 chmod +x /etc/init.d/gitlab
 
 ## Fix for issue 30
 # bundle not in path (edit init-script).
-# Add after ". /etc/rc.d/init.d/functions" (row 17).
-sed -i "17 a source /etc/profile.d/rvm.sh\nrvm use $RUBY_VERSION" /etc/init.d/gitlab
+# Add after ". /etc/rc.d/init.d/functions" (row 22).
+sed -i "22 a source /etc/profile.d/rvm.sh\nrvm use $RUBY_VERSION" /etc/init.d/gitlab
 
 ### Enable and start
 chkconfig gitlab on
