@@ -1,0 +1,86 @@
+#!/bin/bash
+# Base install with https://github.com/byszhao/gitlab-installer/blob/master/gitlab6.1_install_Centos6.4
+# Read more from https://github.com/gitlabhq/gitlabhq/blob/master/doc/update/6.1-to-6.2.md
+#Stop server
+
+#set GL_HOSTNAME
+        echo "==========================="
+
+        GL_HOSTNAME=$HOSTNAME
+        echo "Please input the gitlab domain:"
+        read -p "(Default domain: $HOSTNAME):" inputdomain
+        if [ "$inputdomain" = "" ]; then
+                inputdomain=$HOSTNAME
+        fi
+        echo "==========================="
+        echo "Domain:$inputdomain"
+        echo "==========================="
+# Define the public hostname
+export GL_HOSTNAME=$inputdomain
+
+sudo service gitlab stop
+
+### Get latest code
+su - git -c "cd /home/git/gitlab"
+su - git -c "git fetch"
+su - git -c "git checkout -f"
+su - git -c "git pull"
+su - git -c "git checkout 6-2-stable"
+
+### Update gitlab-shell
+su - git -c "cd /home/git/gitlab-shell"
+su - git -c "git fetch"
+su - git -c "git checkout v1.7.4"
+
+### Install additional packages
+yum -y install logrotate
+
+### Install libs, migrations, etc.
+source /etc/profile.d/rvm.sh
+gem sources --remove https://rubygems.org/
+gem sources -a http://ruby.taobao.org/
+gem sources -l
+rvm --default use 2.0.0-p247
+su - git -c "cd /home/git/gitlab"
+su git -c "bundle install --deployment --without development test postgres"
+su git -c "bundle exec rake db:migrate RAILS_ENV=production"
+su git -c "bundle exec rake assets:clean RAILS_ENV=production"
+su git -c "bundle exec rake assets:precompile RAILS_ENV=production"
+su git -c "bundle exec cache:clear RAILS_ENV=production"
+
+
+### Copy the example GitLab config
+su git -c "rm -rf config/gitlab.yml"
+su git -c "cp config/gitlab.yml.example config/gitlab.yml"
+
+### Change gitlabhq hostname to GL_HOSTNAME
+sed -i "s/ host: localhost/ host: $GL_HOSTNAME/g" config/gitlab.yml
+
+### Change the from email address
+sed -i "s/from: gitlab@localhost/from: gitlab@$GL_HOSTNAME/g" config/gitlab.yml
+
+
+### Unicorn config for gitlab 5.0 6.1
+su git -c "rm -rf config/unicorn.rb"
+su git -c "cp config/unicorn.rb.example config/unicorn.rb"
+### Listen on localhost:3000
+sed -i "s/^listen/#listen/g" /home/git/gitlab/config/unicorn.rb
+sed -i "s/#listen \"127.0.0.1:8080\"/listen \"127.0.0.1:3000\"/g" /home/git/gitlab/config/unicorn.rb
+
+su git -c "cp config/initializers/rack_attack.rb.example config/initializers/rack_attack.rb"
+
+sed -i "s/# config.middleware.use Rack::Attack/config.middleware.use Rack::Attack/g" /home/git/gitlab/config/application.rb
+
+sudo cp lib/support/logrotate/gitlab /etc/logrotate.d/gitlab
+
+### Update Init script
+wget -O /etc/init.d/gitlab https://raw.github.com/byszhao/gitlab-installer/master/gitlab-unicorn-6.2-centos
+chmod +x /etc/init.d/gitlab
+chkconfig --add gitlab
+# Add after ". /etc/rc.d/init.d/functions" (row 19).
+sed -i "19 a source /etc/profile.d/rvm.sh\nrvm use $RUBY_VERSION" /etc/init.d/gitlab
+sed -i "46 a RVM_PATH=\"\$RVM_PATH:/usr/local/rvm/gems/$RUBY_VERSION/bin\"" /etc/init.d/gitlab
+
+### Enable and start
+chkconfig gitlab on
+service gitlab start
